@@ -26,12 +26,16 @@ def path_elevation(user_location, destination, samples):
     2) get_speed: which is the speed at which a person walks given FITBIT data
     3) classes: which is the number of classes during the time frame in which the person is travelling."""
 
-def real_time(real_dist, get_speed, time):
-    if 14 <= time <= 16 or 10 <= time <= 12:
-        affected_speed = get_speed * 0.8
-        return real_dist * affected_speed
-    elif 8 <= time <= 10 or 12 <= time <= 14:
-        affected_speed = get_speed*0.9
-        return real_dist * affected_speed
-    else:
+def real_time(real_dist, get_speed, day, time):
+    assert 0 <= time <= 24
+    if day == Saturday or day == Sunday:
         return real_dist * get_speed
+    else:
+        if 14 <= time <= 16 or 10 <= time <= 12:
+            affected_speed = get_speed * 0.8
+            return real_dist * affected_speed
+        elif 8 <= time <= 10 or 12 <= time <= 14:
+            affected_speed = get_speed * 0.9
+            return real_dist * affected_speed
+        else:
+            return real_dist * get_speed
